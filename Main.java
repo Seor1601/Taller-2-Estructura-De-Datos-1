@@ -9,7 +9,7 @@ public class Main {
         System.out.println("Listar pedidos de clientes");
         System.out.println("Salir");
         Scanner read = new Scanner();
-        op.read.nextInt();
+        op=read.nextInt();
         switch(op){
             case 1:
                 break;

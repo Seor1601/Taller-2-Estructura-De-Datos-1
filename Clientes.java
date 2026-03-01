@@ -6,7 +6,6 @@ public class Clientes {
     private String telefono;
     private boolean activo;
 
-    // Constructor
     public Clientes(int id, String nombre, String apellido,
                     String telefono, boolean activo) {
         this.id = id;
@@ -16,7 +15,6 @@ public class Clientes {
         this.activo = activo;
     }
 
-    // Getters
     public int getId() {
         return id;
     }

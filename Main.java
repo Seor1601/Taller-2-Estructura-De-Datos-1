@@ -38,7 +38,9 @@ public class Main {
                 break;
 
             case 5:
-               
+                System.out.println("Ingrese ID del cliente:");
+                int idCliente = read.nextInt();
+                Pedidos.listarPedidosPorCliente(idCliente);
                 break;
 
             case 6:

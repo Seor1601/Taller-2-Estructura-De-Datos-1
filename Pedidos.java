@@ -1,6 +1,4 @@
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,38 +11,22 @@ public class Pedidos {
     private String producto;
     private double precio;
     private int cantidad;
+    private boolean activo;
 
-    public Pedidos(int idPedido, int idCliente, String producto, double precio, int cantidad) {
+    public Pedidos(int idPedido, int idCliente, String producto,
+                   double precio, int cantidad, boolean activo) {
+
         this.idPedido = idPedido;
         this.idCliente = idCliente;
         this.producto = producto;
         this.precio = precio;
         this.cantidad = cantidad;
+        this.activo = activo;
     }
 
-    public int getIdCliente() { return idCliente; }
-
-    public String toCSV() {
-        return idPedido + "," + idCliente + "," + producto + "," + precio + "," + cantidad;
+    public boolean isActivo() {
+        return activo;
     }
-
-    public static void registrarPedido() throws IOException {
-
-        Scanner sc = new Scanner(System.in);
-
-        int idCliente = sc.nextInt();
-        String producto = sc.next();
-        double precio = sc.nextDouble();
-        int cantidad = sc.nextInt();
-
-        int nuevoId = leerPedidos().size() + 1;
-
-        BufferedWriter bw = new BufferedWriter(new FileWriter("pedidos.csv", true));
-        bw.write(nuevoId + "," + idCliente + "," + producto + "," + precio + "," + cantidad);
-        bw.newLine();
-        bw.close();
-    }
-
     public static List<Pedidos> leerPedidos() throws IOException {
 
         List<Pedidos> lista = new ArrayList<>();
@@ -54,7 +36,7 @@ public class Pedidos {
 
         Scanner sc = new Scanner(archivo);
 
-        if (sc.hasNextLine()) sc.nextLine();
+        if (sc.hasNextLine()) sc.nextLine(); // saltar encabezado
 
         while (sc.hasNextLine()) {
 
@@ -65,7 +47,8 @@ public class Pedidos {
                     Integer.parseInt(datos[1]),
                     datos[2],
                     Double.parseDouble(datos[3]),
-                    Integer.parseInt(datos[4])
+                    Integer.parseInt(datos[4]),
+                    Boolean.parseBoolean(datos[5]) // ahora sí boolean real
             ));
         }
 
@@ -73,13 +56,21 @@ public class Pedidos {
         return lista;
     }
 
-    public static void listarPedidosPorCliente(int idCliente) throws IOException {
+    public static void listarPedidos() throws IOException {
 
         List<Pedidos> lista = leerPedidos();
-
+System.out.println("-------Listado de pedidos------");
         for (Pedidos p : lista) {
-            if (p.getIdCliente() == idCliente) {
-                System.out.println(p.toCSV());
+            if (p.isActivo()) {
+                
+                System.out.println(
+                    
+                        "ID Pedido: " + p.idPedido +
+                        " ID Cliente: " + p.idCliente +
+                        " Producto: " + p.producto +
+                        " Precio: " + p.precio +
+                        " Cantidad: " + p.cantidad
+                );
             }
         }
     }

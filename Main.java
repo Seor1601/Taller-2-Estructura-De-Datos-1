@@ -23,7 +23,7 @@ public class Main {
 
                 switch (op) {
                     case 1:
-                        Registrar_cliente.crearCliente(Cliente cliente);
+                        Registrar_cliente.crearCliente();
                         break;
                     case 2:
                         ClienteCrud.imprimirClientesActivos();
@@ -34,7 +34,7 @@ public class Main {
                         ClienteCrud.eliminarCliente(id);
                         break;
                     case 4:
-                        Registrar_pedido.crearPedido(Usuario usuario);
+                        Registrar_pedido.crearPedido();
                         break;
                     case 5:
                         Pedidos.listarPedidos();

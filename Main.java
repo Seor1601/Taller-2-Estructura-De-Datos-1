@@ -11,7 +11,7 @@ public class Main {
             System.out.println("1. Registrar clientes");
             System.out.println("2. Listar clientes");
             System.out.println("3. Eliminar clientes");
-            System.out.println("4. Actualizar datos de clientes");
+            System.out.println("4. Registrar pedido");
             System.out.println("5. Listar pedidos de clientes");
             System.out.println("6. Salir");
 
@@ -23,7 +23,7 @@ public class Main {
 
                 switch (op) {
                     case 1:
-                        Registrar_cliente.crearCliente(Cliente cliente)
+                        Registrar_cliente.crearCliente(Cliente cliente);
                         break;
                     case 2:
                         ClienteCrud.imprimirClientesActivos();
@@ -34,7 +34,7 @@ public class Main {
                         ClienteCrud.eliminarCliente(id);
                         break;
                     case 4:
-                        System.out.println("Pendiente");
+                        Registrar_pedido.crearPedido(Usuario usuario);
                         break;
                     case 5:
                         Pedidos.listarPedidos();

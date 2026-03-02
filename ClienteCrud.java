@@ -7,10 +7,8 @@ public class ClienteCrud {
 
     private static final String ARCHIVO = "clientes.csv";
 
-  
     public static List<Cliente> listarClientes() throws IOException {
         List<Cliente> lista = new ArrayList<>();
-
         Path ruta = Paths.get(ARCHIVO);
 
         if (!Files.exists(ruta)) return lista;
@@ -20,13 +18,14 @@ public class ClienteCrud {
             br.readLine();
             while ((linea = br.readLine()) != null) {
                 if (linea.trim().isEmpty()) continue;
-                String[] datos = linea.split(",");
+                String[] datos = linea.split(",", -1);
+
                 lista.add(new Cliente(
-                    Integer.parseInt(datos[0]),
-                    datos[1],
-                    datos[2],
-                    datos[3],
-                    Integer.parseInt(datos[4])
+                        Integer.parseInt(datos[0].trim()),
+                        datos[1].trim(),
+                        datos[2].trim(),
+                        datos[3].trim(),
+                        Integer.parseInt(datos[4].trim())
                 ));
             }
         }
@@ -34,25 +33,49 @@ public class ClienteCrud {
         return lista;
     }
 
-    
     public static void eliminarCliente(int id) throws IOException {
         List<Cliente> lista = listarClientes();
 
-        Path out = Paths.get(ARCHIVO);
-
         try (BufferedWriter bw = Files.newBufferedWriter(
-                out,
+                Paths.get(ARCHIVO),
                 StandardCharsets.UTF_8,
                 StandardOpenOption.CREATE,
-                StandardOpenOption.TRUNCATE_EXISTING)) {
-
-            bw.write("id_cliente,nombre,apellido,telefono,activo\n"); 
+                StandardOpenOption.TRUNCATE_EXISTING
+        )) {
+            bw.write("id_cliente,nombre,apellido,telefono,activo");
+            bw.newLine();
 
             for (Cliente c : lista) {
                 if (c.getId() == id) {
-                    c.setActivo(0); 
+                    c.setActivo(0);
                 }
-                bw.write(c.toString() + "\n");
+
+                bw.write(
+                        c.getId() + "," +
+                        c.getNombre() + "," +
+                        c.getApellido() + "," +
+                        c.getTelefono() + "," +
+                        c.getActivo()
+                );
+                bw.newLine();
+            }
+        }
+
+        System.out.println("Cliente " + id + " marcado como inactivo.");
+    }
+
+    public static void imprimirClientesActivos() throws IOException {
+        List<Cliente> lista = listarClientes();
+        System.out.println("~~Listado de clientes (activos)~~");
+
+        for (Cliente c : lista) {
+            if (c.isActivo()) {
+                System.out.println(
+                        "ID: " + c.getId() +
+                        " Nombre: " + c.getNombre() +
+                        " Apellido: " + c.getApellido() +
+                        " Telefono: " + c.getTelefono()
+                );
             }
         }
     }

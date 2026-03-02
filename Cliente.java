@@ -1,10 +1,8 @@
-
 public class Cliente {
-
     private int id;
-    public String nombre;
-    public String apellido;
-    public String telefono;
+    private String nombre;
+    private String apellido;
+    private String telefono;
     private int activo;
 
     public Cliente(int id, String nombre, String apellido, String telefono, int activo) {
@@ -31,14 +29,20 @@ public class Cliente {
         return telefono;
     }
 
+    public int getActivo() {
+        return activo;
+    }
+
     public void setActivo(int activo) {
         this.activo = activo;
-
     }
+
+    public boolean isActivo() {
+        return activo == 1;
+    }
+
     @Override
-
     public String toString() {
-        return id + "," + nombre + "," + apellido + "," + telefono + "," + activo;
+        return "ID: " + id + " Nombre: " + nombre + " Apellido: " + apellido + " Telefono: " + telefono + " Activo: " + activo;
     }
-
- }
+}

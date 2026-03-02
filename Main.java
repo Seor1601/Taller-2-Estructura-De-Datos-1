@@ -23,7 +23,7 @@ public class Main {
 
                 switch (op) {
                     case 1:
-                        System.out.println("Pendiente");
+                        Registrar_cliente.crearCliente(Cliente cliente)
                         break;
                     case 2:
                         ClienteCrud.imprimirClientesActivos();
